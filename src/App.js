@@ -3,7 +3,7 @@ import Home from './screens/Home';
 
 function App() {
   return (
-    <div className='fs-1'>
+    <div className>
      
       <Home />
 
