@@ -19,6 +19,12 @@ export default function Navbar() {
               <li className="nav-item">
                 <Link className="nav-link" to="/login">Login</Link>
               </li>
+              <li className="nav-item ms-3 mt-2"> {/* Add margin-left and margin-top */}
+                <form className="d-flex">
+                  <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                  <button className="btn btn-outline-success" type="submit">Search</button>
+                </form>
+              </li>
               {/* Add more nav items here if needed */}
             </ul>
           </div>
