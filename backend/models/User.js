@@ -1,12 +1,29 @@
-const MongoClient = require('mongodb').MongoClient;
-// create a user schhema
-const UserSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    password: String,
-    location: String,
+// user.js
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
+const UserSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    location: {
+        type: String,
+        required: true
+    },
     date: {
         type: Date,
         default: Date.now
     }
 });
+
+// Make sure to export the model
+module.exports = mongoose.model('User', UserSchema);

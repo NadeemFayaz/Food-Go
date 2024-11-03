@@ -1,23 +1,17 @@
-const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://iamabnadeem99:Cplus%40909@foodgo.z93v4.mongodb.net/foodGo?retryWrites=true&w=majority";
-const client = new MongoClient(uri);
+// db.js
+const mongoose = require('mongoose');
 
-async function connect() {
+const connectDB = async () => {
     try {
-        await client.connect();
-        console.log("Connected to MongoDB Atlas!");
-
-        // Example of a long-running operation
-        setInterval(async () => {
-            const database = client.db("foodGo");
-            const collection = database.collection("Sample");
-            const data = await collection.find({}).toArray();
-            //console.log("Fetched data:", data);
-        }, 5000); // Fetches data every 5 seconds
-
+        await mongoose.connect("mongodb+srv://iamabnadeem99:Cplus%40909@foodgo.z93v4.mongodb.net/foodGo?retryWrites=true&w=majority", {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log("Connected to MongoDB Atlas with Mongoose!");
     } catch (e) {
         console.error("Connection error:", e);
+        process.exit(1); // Exit process with failure
     }
-}
+};
 
-connect();
+module.exports = connectDB;

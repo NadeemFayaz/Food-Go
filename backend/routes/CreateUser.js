@@ -1,32 +1,24 @@
+// createuser.js
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
+const User = require('../models/user'); // Ensure the path to user.js is correct
 
-// @route POST api/users
+// @route POST api/CreateUser
 // @desc Register new user
 // @access Public
-router.post('/', async (req, res) => {
-    const { name, email, password, location } = req.body;
-
+router.post('/CreateUser', async (req, res) => {
     try {
-        // Check if user already exists
-        let user = await User.findOne
-        ({ email });
-        if (user) {
-            return res.status(400).json({ msg: 'User already exists' });
-        } else {
-            user = new User({
-                name,
-                email,
-                password,
-                location
-            });
-        }   
-        await user.save();
-        res.send('User registered successfully');
+        await User.create({
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+            location: req.body.location
+        });
+        res.json({ msg: 'User created successfully' });
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server error');
+        console.error('Error in creating user:', err);
+        res.status(500).json({ msg: 'Server error' });
     }
-}
-);
+});
+
+module.exports = router;
