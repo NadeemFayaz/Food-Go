@@ -1,6 +1,7 @@
 // user.js
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const bcrypt = require('bcryptjs');
 
 const UserSchema = new Schema({
     name: {
@@ -15,7 +16,7 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    location: {
+    geolocation: {
         type: String,
         required: true
     },
@@ -24,6 +25,12 @@ const UserSchema = new Schema({
         default: Date.now
     }
 });
+
+
+// Define the matchPassword method
+UserSchema.methods.matchPassword = async function (enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
+  };
 
 // Make sure to export the model
 module.exports = mongoose.model('User', UserSchema);
