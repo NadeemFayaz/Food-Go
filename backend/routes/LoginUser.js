@@ -7,6 +7,8 @@ const User = require('../models/user');
 // @access Public
 
 router.post('/LoginUser', async (req, res) => {
+     console.log('Request Body:', req.body); // Add this line
+
   const { email, password } = req.body;
 
   try {

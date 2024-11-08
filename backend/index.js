@@ -14,8 +14,21 @@ app.use(cors({
     allowedHeaders: 'Content-Type',   // Specify allowed headers
 }));
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+// Middlewares
+app.use(express.json()); // JSON body parser
+app.use(express.urlencoded({ extended: false })); // URL-encoded body parser
+
+// Enable CORS with specific options
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: 'GET,POST,PUT,DELETE',
+    allowedHeaders: 'Content-Type',
+}));
+
+// Routes
+app.use('/api', require('./routes/CreateUser'));
+app.use('/api', require('./routes/LoginUser'));
+
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
