@@ -3,6 +3,11 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user'); // Ensure the path to user.js is correct
 const { body, validationResult } = require('express-validator');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('config');
+
+
 
 // @route POST api/CreateUser
 // @desc Register new user
