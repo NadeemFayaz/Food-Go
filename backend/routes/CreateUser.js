@@ -5,7 +5,7 @@ const User = require('../models/user'); // Ensure the path to user.js is correct
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const config = require('config');
+
 
 
 
@@ -33,11 +33,14 @@ router.post(
 
     // Process registration if validation passed
 // Inside createuser.js
+
+const salt = await bcrypt.genSalt(10);
+const hashedPassword = await bcrypt.hash(req.body.password, salt);
 try {
   const newUser = await User.create({
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password,
+      password: hashedPassword,
       geolocation: req.body.geolocation
   });
   res.json({ success: true, msg: 'User created successfully' });
